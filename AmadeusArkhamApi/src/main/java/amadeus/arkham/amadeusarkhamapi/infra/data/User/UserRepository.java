@@ -1,6 +1,6 @@
-package amadeus.arkham.amadeusarkhamapi.infra.data;
+package amadeus.arkham.amadeusarkhamapi.infra.data.User;
 
-import amadeus.arkham.amadeusarkhamapi.domain.models.User;
+import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;

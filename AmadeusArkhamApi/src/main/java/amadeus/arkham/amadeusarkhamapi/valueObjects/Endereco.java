@@ -1,6 +1,5 @@
 package amadeus.arkham.amadeusarkhamapi.valueObjects;
 
-import amadeus.arkham.amadeusarkhamapi.application.viewmodels.EnderecoViewModel;
 import jakarta.persistence.Embeddable;
 
 

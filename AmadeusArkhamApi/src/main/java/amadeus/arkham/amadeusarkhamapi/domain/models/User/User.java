@@ -1,7 +1,8 @@
-package amadeus.arkham.amadeusarkhamapi.domain.models;
+package amadeus.arkham.amadeusarkhamapi.domain.models.User;
 
 import jakarta.persistence.*;
 import jakarta.xml.bind.ValidationException;
+
 
 @Entity
 @Table(schema = "dbo", name = "users")

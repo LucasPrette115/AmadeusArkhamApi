@@ -1,12 +1,14 @@
 package amadeus.arkham.amadeusarkhamapi.application.services;
 
-import amadeus.arkham.amadeusarkhamapi.application.viewmodels.UserViewModel;
-import amadeus.arkham.amadeusarkhamapi.domain.models.User;
-import amadeus.arkham.amadeusarkhamapi.infra.data.UserRepository;
+import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.CreateUserViewModel;
+import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.UserViewModel;
+import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
+import amadeus.arkham.amadeusarkhamapi.infra.data.User.UserRepository;
 import jakarta.xml.bind.ValidationException;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String salvarUsuario(UserViewModel user) throws ValidationException {
+    public String salvarUsuario(@NotNull CreateUserViewModel user) throws ValidationException {
         User newUser = user.ByViewModel();
         try {
             boolean userExistsByEmail = userRepository.existsByEmail(newUser.getEmail());
@@ -28,6 +30,13 @@ public class UserService {
 
             if (userExistsByEmail || userExistsByUsername) {
                 throw new ValidationException("Já existe um usuário com o mesmo email ou username");
+            }
+            String username = newUser.getUsername();
+            String password = newUser.getPassword();
+            String email = newUser.getEmail();
+
+            if (StringUtils.containsWhitespace(username) || StringUtils.containsWhitespace(password) || StringUtils.containsWhitespace(email)) {
+                throw new ValidationException("Formato incorreto!");
             }
             userRepository.insertUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
 
@@ -40,25 +49,49 @@ public class UserService {
     public List<User> listarUsuarios() {
         return userRepository.findAll();
     }
+    public User buscarUserporUsername(@NotNull UserViewModel user) {
+        User userResult = userRepository.findByUsername(user.getUsername());
+        try {
+            if (userResult == null) {
+                throw new ValidationException("Usuário não encontrado!");
+            }
 
-    public void atualizarUsuario(Long id, UserViewModel updatedUserData) throws ChangeSetPersister.NotFoundException {
+        } catch (ValidationException e) {
+             e.getMessage();
+        }
+        return userResult;
+    }
+    public String atualizarUsuario(@NotNull UserViewModel user) {
+        try {
+            User userResult = userRepository.findByUsername(user.getUsername());
+            if(userResult == null) {
+                throw new ValidationException("Usuário não encontrado!");
+            }
+            userResult.setPassword(user.getPassword());
+            userResult.setUsername(user.getUsername());
+            userRepository.save(userResult);
 
-        User user = userRepository.findById(id)
-                .orElseThrow(ChangeSetPersister.NotFoundException::new);
-
-        user.setUsername(updatedUserData.getUsername());
-        user.setEmail(updatedUserData.getEmail());
-        user.setPassword(updatedUserData.getPassword());
-        userRepository.save(user);
+        } catch (ValidationException e) {
+            return e.getMessage();
+        }
+        return null;
     }
 
-    public boolean authenticate(UserViewModel user) throws ValidationException {
+    public String removerUsuario(@NotNull UserViewModel user) {
+        User userResult = userRepository.findByUsername(user.getUsername());
+        try {
+            if(userResult == null) {
+                throw new ValidationException("Usuário não encontrado");
+            }
+            userRepository.delete(userResult);
+        } catch (ValidationException e){
+            return e.getMessage();
+        }
+        return null;
+    }
+
+    public boolean authenticate(@NotNull UserViewModel user) throws ValidationException {
         User userResult = userRepository.findByUsername(user.getUsername());
         return userResult != null && userResult.getPassword().equals(user.getPassword());
-    }
-
-
-    public User updateUserInfo(Long id, UserViewModel user) {
-        return null;
     }
 }

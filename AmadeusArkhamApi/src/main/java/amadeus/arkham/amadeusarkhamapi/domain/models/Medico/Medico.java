@@ -1,5 +1,6 @@
-package amadeus.arkham.amadeusarkhamapi.domain.models;
+package amadeus.arkham.amadeusarkhamapi.domain.models.Medico;
 
+import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import jakarta.persistence.*;
 
 @Table(name = "medicos")

@@ -1,6 +1,6 @@
-package amadeus.arkham.amadeusarkhamapi.application.viewmodels;
+package amadeus.arkham.amadeusarkhamapi.application.viewmodels.User;
 
-import amadeus.arkham.amadeusarkhamapi.domain.models.User;
+import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
 
 public class UserViewModel
 {

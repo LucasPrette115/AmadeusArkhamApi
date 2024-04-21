@@ -1,4 +1,4 @@
-package amadeus.arkham.amadeusarkhamapi.application.viewmodels;
+package amadeus.arkham.amadeusarkhamapi.application.viewmodels.Endereco;
 
 public class EnderecoViewModel {
 

@@ -1,4 +1,4 @@
-package amadeus.arkham.amadeusarkhamapi.domain.models;
+package amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
