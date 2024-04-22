@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     @Procedure
-    void insertUser(@Param("username") String username, @Param("email") String email, @Param("password") String password);
+    void sp_insertUser(@Param("username") String username, @Param("email") String email, @Param("password") String password);
 
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);

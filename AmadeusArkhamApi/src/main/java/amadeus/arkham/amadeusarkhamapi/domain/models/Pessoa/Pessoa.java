@@ -1,11 +1,6 @@
 package amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.*;
 
 
 @Entity
@@ -19,9 +14,14 @@ public class Pessoa {
     private String telefone;
     private int idade;
     private String sexo;
+    @Embedded
     private Endereco endereco;
 
-    public Pessoa(Long id, String nome, String email, String telefone, int idade, String sexo, Endereco endereco)
+    public Pessoa(Long id, String nome,
+                  String email,
+                  String telefone,
+                  int idade, String sexo,
+                  Endereco endereco)
     {
         this.id = id;
         this.nome = nome;
@@ -35,6 +35,7 @@ public class Pessoa {
     public Pessoa() {
 
     }
+
 
     public int getIdade() {
         return idade;

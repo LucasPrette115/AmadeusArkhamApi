@@ -1,6 +1,6 @@
 package amadeus.arkham.amadeusarkhamapi.controller.User;
 
-import amadeus.arkham.amadeusarkhamapi.application.services.UserService;
+import amadeus.arkham.amadeusarkhamapi.application.services.User.UserService;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.CreateUserViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.UserViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;

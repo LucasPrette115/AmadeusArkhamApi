@@ -1,4 +1,4 @@
-package amadeus.arkham.amadeusarkhamapi.application.services;
+package amadeus.arkham.amadeusarkhamapi.application.services.User;
 
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.CreateUserViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.UserViewModel;
@@ -38,7 +38,7 @@ public class UserService {
             if (StringUtils.containsWhitespace(username) || StringUtils.containsWhitespace(password) || StringUtils.containsWhitespace(email)) {
                 throw new ValidationException("Formato incorreto!");
             }
-            userRepository.insertUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
+            userRepository.sp_insertUser(newUser.getUsername(), newUser.getEmail(), newUser.getPassword());
 
         } catch (ValidationException ex) {
             return ex.getMessage();

@@ -1,10 +1,12 @@
 package amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico;
 
+
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 
-public class MedicoViewModel {
+
+public class CreateMedicoViewModel {
     private Long id;
     private String nome;
     private Pessoa pessoa;
@@ -20,7 +22,7 @@ public class MedicoViewModel {
     private String cidade;
 
 
-    public MedicoViewModel(Long id,
+    public CreateMedicoViewModel(Long id,
                                  String nome,
                                  Pessoa pessoa,
                                  String crm, Boolean status,
@@ -43,6 +45,8 @@ public class MedicoViewModel {
         this.numero = numero;
         this.cidade = cidade;
     }
+
+
     public Medico ByViewModel(){
         Endereco endereco = new Endereco(
                 cep,
@@ -54,15 +58,39 @@ public class MedicoViewModel {
         medico.setCrm(crm);
         medico.setStatus(status);
         medico.setPessoa(new Pessoa(
-                id,
-                nome,
-                email,
-                telefone,
-                idade,
-                sexo,
-                endereco
+            id,
+            nome,
+            email,
+            telefone,
+            idade,
+            sexo,
+            endereco
         ));
         return medico;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public Long getId() {
@@ -104,29 +132,12 @@ public class MedicoViewModel {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
-    public String getEmail() {
-        return email;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public int getIdade() {
@@ -137,35 +148,28 @@ public class MedicoViewModel {
         this.idade = idade;
     }
 
-    public String getSexo() {
-        return sexo;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
-    public String getCep() {
-        return cep;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
+
