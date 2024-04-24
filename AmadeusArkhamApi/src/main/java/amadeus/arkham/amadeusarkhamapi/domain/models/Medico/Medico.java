@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
+
 public class Medico
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,18 +13,16 @@ public class Medico
 
 
     private String nome;
-    @OneToOne
-    @JoinColumn(name = "id_pessoa", unique = true)
-    private Pessoa pessoa;
     private String crm;
     private Boolean status;
-
-    public Medico(final Long id, Pessoa pessoa,
+    @OneToOne
+    @JoinColumn(name = "idPessoa", referencedColumnName = "id")
+    private Pessoa pessoa;
+    public Medico(final Long id,
                   String crm,
                   Boolean status)
     {
         this.id = id;
-        this.pessoa = pessoa;
         this.crm = crm;
         this.status = status;
     }
@@ -31,6 +30,23 @@ public class Medico
     public Medico() {
 
     }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -58,13 +74,6 @@ public class Medico
         this.status = status;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
 }
 
 

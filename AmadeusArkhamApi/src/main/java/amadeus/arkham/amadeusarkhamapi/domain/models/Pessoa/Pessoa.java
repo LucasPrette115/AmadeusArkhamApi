@@ -36,6 +36,15 @@ public class Pessoa {
 
     }
 
+    public Pessoa(String nome, String email, String telefone, int idade, String sexo, Endereco endereco) {
+                this.nome = nome;
+                this.email = email;
+                this.telefone = telefone;
+                this.idade = idade;
+                this.sexo = sexo;
+                this.endereco = endereco;
+    }
+
 
     public int getIdade() {
         return idade;

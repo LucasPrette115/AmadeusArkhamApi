@@ -4,15 +4,14 @@ import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.CreateMedic
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.DeleteMedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.MedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
-import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Medico.MedicoRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Pessoas.PessoaRepository;
-import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -28,7 +27,7 @@ public class MedicoAppService {
         this.pessoaRepository = pessoaRepository;
     }
 
-    public String salvarMedico(@NotNull CreateMedicoViewModel medico) throws ValidationException {
+    public String salvarMedico(@NotNull CreateMedicoViewModel medico) {
         Medico newDoctor = medico.ByViewModel();
         try {
             boolean userExistsByCrm = medicoRepository.existsByCrm(newDoctor.getCrm());
@@ -42,7 +41,7 @@ public class MedicoAppService {
             medicoRepository.sp_insertMedico(
                     newDoctor.getPessoa().getEmail(),
                     newDoctor.getPessoa().getEndereco().getCep(),
-                    newDoctor.getPessoa().getEndereco().getCep(),
+                    newDoctor.getPessoa().getEndereco().getCidade(),
                     newDoctor.getPessoa().getEndereco().getNumero(),
                     newDoctor.getPessoa().getIdade(),
                     newDoctor.getPessoa().getNome(),
@@ -58,34 +57,20 @@ public class MedicoAppService {
         }
         return null;
     }
-    public String atualizarMedico(@NotNull MedicoViewModel medico) throws ValidationException {
+    public String atualizarMedico(@NotNull MedicoViewModel medico) {
         try {
-            boolean exists = medicoRepository.existsById(medico.getId());
-            Medico medicoResp = medicoRepository.getReferenceById(medico.getId());
-            if(!exists) {
-                throw new ValidationException("Médico não encontrado!");
-            }
-            Endereco endereco = new Endereco(
-                    medico.getCep(),
-                    medico.getNumero(),
-                    medico.getCidade()
-            );
-            Pessoa pessoa = new Pessoa(
-                    medico.getId(),
-                    medico.getNome(),
-                    medico.getEmail(),
-                    medico.getTelefone(),
-                    medico.getIdade(),
-                    medico.getSexo(),
-                    endereco
-            );
-            medicoResp.setNome(medico.getNome());
-            medicoResp.setCrm(medico.getCrm());
-            medicoResp.setStatus(medico.getStatus());
-            medicoResp.setPessoa(pessoa);
+            Optional<Medico> medicoResult = medicoRepository.findById(medico.getId());
 
-            pessoaRepository.save(pessoa);
-            medicoRepository.save(medicoResp);
+            if (medicoResult.isPresent()) {
+                Medico medicoRepo = medicoResult.get();
+                Medico newMedico = medico.UpdateyByViewModel();
+                newMedico.getPessoa().setId(medicoRepo.getPessoa().getId());
+                pessoaRepository.save(newMedico.getPessoa());
+                medicoRepository.save(newMedico);
+            }
+            else{
+                throw new ValidationException("Paciente não encontrado!");
+            }
 
         } catch (ValidationException e) {
             return e.getMessage();
@@ -99,12 +84,12 @@ public class MedicoAppService {
     public String removerMedico(@NotNull DeleteMedicoViewModel medico) {
         try {
             boolean exists = medicoRepository.existsById(medico.getId());
-            boolean exists2 = pessoaRepository.existsById(medico.getPessoa().getId());
-            if (!exists && !exists2) {
+            if (!exists) {
                 throw new ValidationException("Médico não encontrado");
             }
-            pessoaRepository.deleteById(medico.getPessoa().getId());
             medicoRepository.deleteById(medico.getId());
+            pessoaRepository.deleteById(medico.getId());
+
 
         } catch (ValidationException e){
             return e.getMessage();

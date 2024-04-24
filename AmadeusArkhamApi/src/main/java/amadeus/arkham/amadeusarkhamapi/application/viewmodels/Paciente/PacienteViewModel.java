@@ -1,14 +1,17 @@
-package amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico;
+package amadeus.arkham.amadeusarkhamapi.application.viewmodels.Paciente;
 
-import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 
-public class MedicoViewModel {
+import java.util.Date;
+import java.util.Optional;
+
+public class PacienteViewModel {
+
     private Long id;
     private String nome;
-    private String crm;
-    private Boolean status;
+    private String cpf;
     private String email;
     private String telefone;
     private int idade;
@@ -16,21 +19,24 @@ public class MedicoViewModel {
     private String cep;
     private String numero;
     private String cidade;
+    private Date dataNascimento;
 
-
-    public MedicoViewModel(Long id,
-                                 String nome,
-                                 Pessoa pessoa,
-                                 String crm, Boolean status,
-                                 String email, String telefone,
-                                 Endereco endereco, int idade,
-                                 String sexo, String cep,
-                                 String numero,
-                                 String cidade) {
+    public PacienteViewModel(Long id,
+                             String nome,
+                             Pessoa pessoa,
+                             String cpf,
+                             String email,
+                             String telefone,
+                             Endereco endereco,
+                             int idade,
+                             String sexo,
+                             String cep,
+                             String numero,
+                             String cidade,
+                             Date dataNascimento) {
         this.id = id;
         this.nome = nome;
-        this.crm = crm;
-        this.status = status;
+        this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
         this.idade = idade;
@@ -38,19 +44,22 @@ public class MedicoViewModel {
         this.cep = cep;
         this.numero = numero;
         this.cidade = cidade;
+        this.dataNascimento = dataNascimento;
     }
-    public Medico UpdateyByViewModel(){
+    public Paciente UpdateByViewModel(){
         Endereco endereco = new Endereco(
                 cep,
                 numero,
                 cidade
         );
-        Medico medico = new Medico();
-        medico.setNome(nome);
-        medico.setCrm(crm);
-        medico.setStatus(status);
-        medico.setPessoa(new Pessoa(
-                id,
+
+        Paciente paciente = new Paciente();
+        paciente.setId(id);
+        paciente.setNome(nome);
+        paciente.setEmail(email);
+        paciente.setCpf(cpf);
+        paciente.setDataNascimento(dataNascimento);
+        paciente.setPessoa(new Pessoa(
                 nome,
                 email,
                 telefone,
@@ -58,8 +67,9 @@ public class MedicoViewModel {
                 sexo,
                 endereco
         ));
-        return medico;
+        return paciente;
     }
+
     public Long getId() {
         return id;
     }
@@ -76,20 +86,13 @@ public class MedicoViewModel {
         this.nome = nome;
     }
 
-    public String getCrm() {
-        return crm;
+
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCrm(String crm) {
-        this.crm = crm;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
@@ -107,6 +110,7 @@ public class MedicoViewModel {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
 
     public int getIdade() {
         return idade;
@@ -148,5 +152,11 @@ public class MedicoViewModel {
         this.cidade = cidade;
     }
 
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
 
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 }
