@@ -2,6 +2,7 @@ package amadeus.arkham.amadeusarkhamapi.domain.models.User;
 
 import jakarta.persistence.*;
 import jakarta.xml.bind.ValidationException;
+import org.jetbrains.annotations.NotNull;
 
 
 @Entity
@@ -10,18 +11,28 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
-
+    @NotNull
     private String username;
+    @NotNull
     private String email;
+    @NotNull
     private String password;
+    @NotNull
+    private boolean status;
 
 
-    public User(Long id, String username, String email, String password) throws ValidationException {
+    public User(Long id,
+                String username,
+                String email,
+                String password,
+                boolean status) throws ValidationException {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.status = status;
         validate();
     }
 
@@ -34,6 +45,13 @@ public class User {
         }
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

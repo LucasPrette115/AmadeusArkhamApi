@@ -84,14 +84,16 @@ public class MedicoAppService {
         return medicoRepository.findAll();
     }
 
-    public String removerMedico(@NotNull DeleteMedicoViewModel medico) {
+    public String removerMedico(@NotNull MedicoViewModel medico) {
         try {
-            boolean exists = medicoRepository.existsById(medico.getId());
-            if (!exists) {
+            Optional<Medico> medicoResult = medicoRepository.findById(medico.getId());
+
+            if (!medicoResult.isPresent()) {
                 throw new ValidationException("Médico não encontrado");
             }
-            medicoRepository.deleteById(medico.getId());
-            pessoaRepository.deleteById(medico.getId());
+
+            medicoRepository.deleteById(medicoResult.get().getId());
+            pessoaRepository.deleteById(medicoResult.get().getPessoa().getId());
 
 
         } catch (ValidationException e){

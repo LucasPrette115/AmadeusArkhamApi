@@ -1,4 +1,4 @@
-package amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento;
+package amadeus.arkham.amadeusarkhamapi.domain.models.Internacao;
 
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
@@ -7,9 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
-
 @Entity
-public class Agendamentos {
+public class Internacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,35 +27,20 @@ public class Agendamentos {
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
-    private Date dataHora;
+    private Date dataInternacao;
     @NotNull
-    private String tipoConsulta;
+    private String diagnostico;
 
-    public Agendamentos(Long id, Medico medico, Paciente paciente, Date dataHora, String tipoConsulta) {
+    public Internacao(Long id, Medico medico, Paciente paciente, Date dataInternacao, String diagnostico) {
         this.id = id;
         this.medico = medico;
         this.paciente = paciente;
-        this.dataHora = dataHora;
-        this.tipoConsulta = tipoConsulta;
+        this.dataInternacao = dataInternacao;
+        this.diagnostico = diagnostico;
     }
 
-    public Agendamentos() {
-    }
+    public Internacao() {
 
-    public String getTipoConsulta() {
-        return tipoConsulta;
-    }
-
-    public void setTipoConsulta(String tipoConsulta) {
-        this.tipoConsulta = tipoConsulta;
-    }
-
-    public Date getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(Date dataHora) {
-        this.dataHora = dataHora;
     }
 
     public Long getId() {
@@ -81,5 +65,21 @@ public class Agendamentos {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public Date getDataInternacao() {
+        return dataInternacao;
+    }
+
+    public void setDataInternacao(Date dataInternacao) {
+        this.dataInternacao = dataInternacao;
+    }
+
+    public String getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
     }
 }

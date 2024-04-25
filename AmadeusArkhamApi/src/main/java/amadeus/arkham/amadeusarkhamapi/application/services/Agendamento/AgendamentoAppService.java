@@ -1,7 +1,6 @@
 package amadeus.arkham.amadeusarkhamapi.application.services.Agendamento;
 
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Agendamento.AgendamentoViewModel;
-import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Paciente.PacienteViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento.Agendamentos;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;

@@ -64,12 +64,13 @@ public class PacienteAppService {
 
     public String removerPaciente(@NotNull PacienteViewModel paciente) {
         try {
-            boolean exists = pacienteRepository.existsById(paciente.getId());
-            if (!exists) {
+            Optional<Paciente> pacienteResult = pacienteRepository.findById(paciente.getId());
+            if (!pacienteResult.isPresent()) {
                 throw new ValidationException("Paciente não encontrado");
             }
-            pessoaRepository.deleteById(paciente.getId());
-            pacienteRepository.deleteById(paciente.getId());
+            pacienteRepository.deleteById(pacienteResult.get().getPessoa().getId());
+            pessoaRepository.deleteById(pacienteResult.get().getId());
+
 
         } catch (ValidationException e){
             return e.getMessage();

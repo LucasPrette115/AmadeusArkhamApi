@@ -1,6 +1,9 @@
 package amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 import jakarta.persistence.*;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Date;
 
 
 @Entity
@@ -8,12 +11,21 @@ import jakarta.persistence.*;
 public class Pessoa {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
+    @NotNull
     private String nome;
+    @NotNull
     private String email;
+    @NotNull
     private String telefone;
+    @NotNull
     private int idade;
+    @NotNull
     private String sexo;
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    private Date dataNascimento;
     @Embedded
     private Endereco endereco;
 
@@ -21,7 +33,8 @@ public class Pessoa {
                   String email,
                   String telefone,
                   int idade, String sexo,
-                  Endereco endereco)
+                  Endereco endereco,
+                  Date dataNascimento)
     {
         this.id = id;
         this.nome = nome;
@@ -30,19 +43,28 @@ public class Pessoa {
         this.idade = idade;
         this.sexo = sexo;
         this.endereco = endereco;
+        this.dataNascimento = dataNascimento;
     }
 
     public Pessoa() {
 
     }
 
-    public Pessoa(String nome, String email, String telefone, int idade, String sexo, Endereco endereco) {
+    public Pessoa(String nome,
+                  String email,
+                  String telefone,
+                  int idade,
+                  String sexo,
+                  Endereco endereco,
+                  Date dataNascimento) {
                 this.nome = nome;
                 this.email = email;
                 this.telefone = telefone;
                 this.idade = idade;
                 this.sexo = sexo;
                 this.endereco = endereco;
+                this.dataNascimento = dataNascimento;
+
     }
 
 

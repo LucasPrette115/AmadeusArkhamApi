@@ -5,6 +5,8 @@ import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 
+import java.util.Date;
+
 
 public class CreateMedicoViewModel {
     private Long id;
@@ -20,6 +22,7 @@ public class CreateMedicoViewModel {
     private String cep;
     private String numero;
     private String cidade;
+    private Date dataNascimento;
 
 
     public CreateMedicoViewModel(Long id,
@@ -30,7 +33,8 @@ public class CreateMedicoViewModel {
                                  Endereco endereco, int idade,
                                  String sexo, String cep,
                                  String numero,
-                                 String cidade) {
+                                 String cidade,
+                                 Date dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.pessoa = pessoa;
@@ -44,6 +48,7 @@ public class CreateMedicoViewModel {
         this.cep = cep;
         this.numero = numero;
         this.cidade = cidade;
+        this.dataNascimento = dataNascimento;
     }
 
 
@@ -64,7 +69,9 @@ public class CreateMedicoViewModel {
             telefone,
             idade,
             sexo,
-            endereco
+            endereco,
+            dataNascimento
+
         ));
         return medico;
     }

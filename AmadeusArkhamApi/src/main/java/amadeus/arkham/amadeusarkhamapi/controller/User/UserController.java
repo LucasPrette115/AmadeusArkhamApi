@@ -71,9 +71,9 @@ public class UserController {
        }
     }
 
-    @PostMapping("/getByUsername")
-    public ResponseEntity<User> getUsers(@RequestBody UserViewModel user) {
-        User userResult = userService.buscarUserporUsername(user);
+    @GetMapping("/getByUsername")
+    public ResponseEntity<List<User>> getUsers(@RequestParam String username) {
+        List<User> userResult = userService.findByUsernameContainingIgnoreCase(username);
         if (userResult != null) {
             return ResponseEntity.ok(userResult);
         } else {

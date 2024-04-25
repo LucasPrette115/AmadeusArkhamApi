@@ -8,6 +8,7 @@ public class UserViewModel
     private String username;
     private String email;
     private String password;
+    private boolean status;
 
     public Long getId() {
         return id;
@@ -27,6 +28,14 @@ public class UserViewModel
 
     public String getEmail() {
         return email;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setEmail(String email) {

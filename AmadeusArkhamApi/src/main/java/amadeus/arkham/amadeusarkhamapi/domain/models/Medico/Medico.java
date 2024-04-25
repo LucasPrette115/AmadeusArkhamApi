@@ -2,6 +2,7 @@ package amadeus.arkham.amadeusarkhamapi.domain.models.Medico;
 
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import jakarta.persistence.*;
+import org.jetbrains.annotations.NotNull;
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
@@ -9,11 +10,14 @@ import jakarta.persistence.*;
 public class Medico
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
 
-
+    @NotNull
     private String nome;
+    @NotNull
     private String crm;
+    @NotNull
     private Boolean status;
     @OneToOne
     @JoinColumn(name = "idPessoa", referencedColumnName = "id")

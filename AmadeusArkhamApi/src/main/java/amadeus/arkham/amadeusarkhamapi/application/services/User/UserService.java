@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -49,6 +50,7 @@ public class UserService {
     public List<User> listarUsuarios() {
         return userRepository.findAll();
     }
+
     public User buscarUserporUsername(@NotNull UserViewModel user) {
         User userResult = userRepository.findByUsername(user.getUsername());
         try {
@@ -61,12 +63,15 @@ public class UserService {
         }
         return userResult;
     }
+
     public String atualizarUsuario(@NotNull UserViewModel user) {
         try {
             User userResult = userRepository.findByUsername(user.getUsername());
             if(userResult == null) {
                 throw new ValidationException("Usuário não encontrado!");
             }
+            userResult.setStatus(user.isStatus());
+            userResult.setEmail(user.getEmail());
             userResult.setPassword(user.getPassword());
             userResult.setUsername(user.getUsername());
             userRepository.save(userResult);
@@ -78,12 +83,12 @@ public class UserService {
     }
 
     public String removerUsuario(@NotNull UserViewModel user) {
-        User userResult = userRepository.findByUsername(user.getUsername());
+        Optional<User> userResult = userRepository.findById(user.getId());
         try {
-            if(userResult == null) {
+            if(!userResult.isPresent()) {
                 throw new ValidationException("Usuário não encontrado");
             }
-            userRepository.delete(userResult);
+            userRepository.delete(userResult.get());
         } catch (ValidationException e){
             return e.getMessage();
         }
@@ -93,5 +98,9 @@ public class UserService {
     public boolean authenticate(@NotNull UserViewModel user) throws ValidationException {
         User userResult = userRepository.findByUsername(user.getUsername());
         return userResult != null && userResult.getPassword().equals(user.getPassword());
+    }
+
+    public List<User> findByUsernameContainingIgnoreCase(@NotNull String username) {
+        return userRepository.findByUsernameContainingIgnoreCase(username);
     }
 }
