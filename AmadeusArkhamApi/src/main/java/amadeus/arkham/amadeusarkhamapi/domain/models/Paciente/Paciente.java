@@ -38,6 +38,10 @@ public class Paciente {
         this.contatoEmergencia = contatoEmergencia;
     }
 
+    public Paciente() {
+
+    }
+
     public ContatoEmergencia getContatoEmergencia() {
         return contatoEmergencia;
     }
