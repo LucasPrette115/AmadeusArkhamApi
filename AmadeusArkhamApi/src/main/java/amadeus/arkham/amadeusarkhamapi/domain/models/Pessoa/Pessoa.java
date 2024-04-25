@@ -26,6 +26,8 @@ public class Pessoa {
     @NotNull
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
+    @NotNull
+    private String cpf;
     @Embedded
     private Endereco endereco;
 
@@ -34,7 +36,7 @@ public class Pessoa {
                   String telefone,
                   int idade, String sexo,
                   Endereco endereco,
-                  Date dataNascimento)
+                  Date dataNascimento, String cpf)
     {
         this.id = id;
         this.nome = nome;
@@ -44,6 +46,7 @@ public class Pessoa {
         this.sexo = sexo;
         this.endereco = endereco;
         this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
     }
 
     public Pessoa() {
@@ -56,7 +59,7 @@ public class Pessoa {
                   int idade,
                   String sexo,
                   Endereco endereco,
-                  Date dataNascimento) {
+                  Date dataNascimento, @NotNull String cpf) {
                 this.nome = nome;
                 this.email = email;
                 this.telefone = telefone;
@@ -65,6 +68,7 @@ public class Pessoa {
                 this.endereco = endereco;
                 this.dataNascimento = dataNascimento;
 
+        this.cpf = cpf;
     }
 
 

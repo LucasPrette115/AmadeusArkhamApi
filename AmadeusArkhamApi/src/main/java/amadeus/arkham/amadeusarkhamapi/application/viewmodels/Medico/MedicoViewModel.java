@@ -4,6 +4,8 @@ import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 
+import java.util.Date;
+
 public class MedicoViewModel {
     private Long id;
     private String nome;
@@ -16,17 +18,18 @@ public class MedicoViewModel {
     private String cep;
     private String numero;
     private String cidade;
-
+    private String cpf;
+    private Date dataNascimento;
 
     public MedicoViewModel(Long id,
-                                 String nome,
-                                 Pessoa pessoa,
-                                 String crm, Boolean status,
-                                 String email, String telefone,
-                                 Endereco endereco, int idade,
-                                 String sexo, String cep,
-                                 String numero,
-                                 String cidade) {
+                           String nome,
+                           Pessoa pessoa,
+                           String crm, Boolean status,
+                           String email, String telefone,
+                           Endereco endereco, int idade,
+                           String sexo, String cep,
+                           String numero,
+                           String cidade, String cpf, Date dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.crm = crm;
@@ -38,6 +41,8 @@ public class MedicoViewModel {
         this.cep = cep;
         this.numero = numero;
         this.cidade = cidade;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
     }
     public Medico UpdateyByViewModel(){
         Endereco endereco = new Endereco(
@@ -56,7 +61,11 @@ public class MedicoViewModel {
                 telefone,
                 idade,
                 sexo,
-                endereco
+                endereco,
+                dataNascimento,
+                cpf
+
+
         ));
         return medico;
     }

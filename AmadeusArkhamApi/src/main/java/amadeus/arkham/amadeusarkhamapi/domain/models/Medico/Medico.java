@@ -22,7 +22,7 @@ public class Medico
     @OneToOne
     @JoinColumn(name = "idPessoa", referencedColumnName = "id")
     private Pessoa pessoa;
-    public Medico(final Long id,
+    public Medico(Long id,
                   String crm,
                   Boolean status)
     {
