@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
@@ -29,4 +30,5 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     boolean existsByCpf(String cpf);
     Paciente findByCpf(String crm);
     Paciente findById(long id);
+    List<Paciente> findByNomeContainingIgnoreCase(String nome);
 }

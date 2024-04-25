@@ -110,4 +110,8 @@ public class PacienteAppService {
         }
         return null;
     }
+
+    public List<Paciente> findByNomeContainingIgnoreCase(String nome) {
+        return pacienteRepository.findByNomeContainingIgnoreCase(nome);
+    }
 }

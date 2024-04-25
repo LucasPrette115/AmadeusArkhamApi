@@ -71,4 +71,9 @@ public class MedicoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
+
+    @GetMapping("/getByName")
+    public List<Medico> getMedicoByName(@RequestParam String nome) {
+        return medicoAppService.findByNomeContainingIgnoreCase(nome);
+    }
 }

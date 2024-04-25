@@ -5,6 +5,7 @@ import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.DeleteMedic
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.MedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Medico.MedicoRepository;
+import amadeus.arkham.amadeusarkhamapi.infra.data.Paciente.PacienteRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Pessoas.PessoaRepository;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
@@ -19,12 +20,14 @@ public class MedicoAppService {
 
     private final MedicoRepository medicoRepository;
     private final PessoaRepository pessoaRepository;
+    private final PacienteRepository pacienteRepository;
 
 
     @Autowired
-    public MedicoAppService(MedicoRepository medicoRepository, PessoaRepository pessoaRepository) {
+    public MedicoAppService(MedicoRepository medicoRepository, PessoaRepository pessoaRepository, PacienteRepository pacienteRepository) {
         this.medicoRepository = medicoRepository;
         this.pessoaRepository = pessoaRepository;
+        this.pacienteRepository = pacienteRepository;
     }
 
     public String salvarMedico(@NotNull CreateMedicoViewModel medico) {
@@ -108,5 +111,9 @@ public class MedicoAppService {
             e.getMessage();
         }
         return userResult;
+    }
+
+    public List<Medico> findByNomeContainingIgnoreCase(String nome) {
+        return medicoRepository.findByNomeContainingIgnoreCase(nome);
     }
 }

@@ -68,7 +68,10 @@ public class PacienteController {
         }
     }
 
-
+    @GetMapping("/getByName")
+    public List<Paciente> getPacientesByName(@RequestParam String nome) {
+        return pacienteAppService.findByNomeContainingIgnoreCase(nome);
+    }
 
 
 }
