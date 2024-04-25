@@ -65,7 +65,9 @@ public class PacienteViewModel {
                 telefone,
                 idade,
                 sexo,
-                endereco
+                endereco,
+                dataNascimento,
+                cpf
         ));
         return paciente;
     }
