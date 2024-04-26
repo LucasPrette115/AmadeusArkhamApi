@@ -5,11 +5,11 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class ContatoEmergencia {
-    private String nome;
+    private String nomeContato;
     private String telefone;
 
-    public ContatoEmergencia(String nome, String telefone, String relacao) {
-        this.nome = nome;
+    public ContatoEmergencia(String nomeContato, String telefone, String relacao) {
+        this.nomeContato = nomeContato;
         this.telefone = telefone;
     }
 
@@ -18,12 +18,12 @@ public class ContatoEmergencia {
     }
 
     // Getters e Setters
-    public String getNome() {
-        return nome;
+    public String getNomeContato() {
+        return nomeContato;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeContato(String nomeContato) {
+        this.nomeContato = nomeContato;
     }
 
     public String getTelefone() {

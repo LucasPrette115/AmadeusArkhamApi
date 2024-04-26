@@ -19,7 +19,6 @@ public class Pessoa {
     private String email;
     @NotNull
     private String telefone;
-    @NotNull
     private int idade;
     @NotNull
     private String sexo;
@@ -31,12 +30,12 @@ public class Pessoa {
     @Embedded
     private Endereco endereco;
 
-    public Pessoa(Long id, String nome,
-                  String email,
-                  String telefone,
-                  int idade, String sexo,
+    public Pessoa(@NotNull Long id, @NotNull String nome,
+                  @NotNull String email,
+                  @NotNull String telefone,
+                  int idade, @NotNull String sexo,
                   Endereco endereco,
-                  Date dataNascimento, String cpf)
+                  @NotNull Date dataNascimento, @NotNull String cpf)
     {
         this.id = id;
         this.nome = nome;
@@ -53,13 +52,13 @@ public class Pessoa {
 
     }
 
-    public Pessoa(String nome,
-                  String email,
-                  String telefone,
+    public Pessoa(@NotNull String nome,
+                  @NotNull String email,
+                  @NotNull String telefone,
                   int idade,
-                  String sexo,
+                  @NotNull String sexo,
                   Endereco endereco,
-                  Date dataNascimento, @NotNull String cpf) {
+                  @NotNull Date dataNascimento, @NotNull String cpf) {
                 this.nome = nome;
                 this.email = email;
                 this.telefone = telefone;
@@ -67,10 +66,24 @@ public class Pessoa {
                 this.sexo = sexo;
                 this.endereco = endereco;
                 this.dataNascimento = dataNascimento;
-
-        this.cpf = cpf;
+                this.cpf = cpf;
     }
 
+    public @NotNull Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(@NotNull Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public @NotNull String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(@NotNull String cpf) {
+        this.cpf = cpf;
+    }
 
     public int getIdade() {
         return idade;
@@ -84,15 +97,15 @@ public class Pessoa {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(@NotNull String sexo) {
         this.sexo = sexo;
     }
 
-    public void setId(Long id) {
+    public void setId(@NotNull Long id) {
         this.id = id;
     }
 
-    public void setNome(String nome) {
+    public void setNome(@NotNull String nome) {
         this.nome = nome;
     }
 
@@ -100,7 +113,7 @@ public class Pessoa {
         this.email = email;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(@NotNull String telefone) {
         this.telefone = telefone;
     }
 
@@ -108,19 +121,19 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    public Long getId() {
+    public @NotNull Long getId() {
         return id;
     }
 
-    public String getNome() {
+    public @NotNull String getNome() {
         return nome;
     }
 
-    public String getEmail() {
+    public @NotNull String getEmail() {
         return email;
     }
 
-    public String getTelefone() {
+    public @NotNull String getTelefone() {
         return telefone;
     }
 

@@ -13,7 +13,7 @@ public class Paciente {
     @NotNull
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @Column(name = "nome")
     private String nome;
     @NotNull
     private String cpf;
@@ -28,7 +28,13 @@ public class Paciente {
     @NotNull
     private ContatoEmergencia contatoEmergencia;
 
-    public Paciente(Long id, String nome, String cpf, String email, Date dataNascimento, Pessoa pessoa, ContatoEmergencia contatoEmergencia) {
+    public Paciente(Long id,
+                    String nome,
+                    String cpf,
+                    String email,
+                    Date dataNascimento,
+                    Pessoa pessoa,
+                    ContatoEmergencia contatoEmergencia) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;

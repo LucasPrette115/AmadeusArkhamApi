@@ -23,13 +23,14 @@ public class MedicoViewModel {
 
     public MedicoViewModel(Long id,
                            String nome,
-                           Pessoa pessoa,
                            String crm, Boolean status,
                            String email, String telefone,
-                           Endereco endereco, int idade,
+                           int idade,
                            String sexo, String cep,
                            String numero,
-                           String cidade, String cpf, Date dataNascimento) {
+                           String cidade,
+                           String cpf,
+                           Date dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.crm = crm;

@@ -50,6 +50,8 @@ public class MedicoAppService {
                     newDoctor.getPessoa().getNome(),
                     newDoctor.getPessoa().getSexo(),
                     newDoctor.getPessoa().getTelefone(),
+                    newDoctor.getPessoa().getCpf(),
+                    newDoctor.getPessoa().getDataNascimento(),
                     newDoctor.getCrm(),
                     true
             );

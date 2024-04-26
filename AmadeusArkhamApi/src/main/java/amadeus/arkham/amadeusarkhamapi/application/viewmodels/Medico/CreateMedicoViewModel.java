@@ -23,6 +23,7 @@ public class CreateMedicoViewModel {
     private String numero;
     private String cidade;
     private Date dataNascimento;
+    private String cpf;
 
 
     public CreateMedicoViewModel(Long id,
@@ -34,7 +35,7 @@ public class CreateMedicoViewModel {
                                  String sexo, String cep,
                                  String numero,
                                  String cidade,
-                                 Date dataNascimento) {
+                                 Date dataNascimento, String cpf) {
         this.id = id;
         this.nome = nome;
         this.pessoa = pessoa;
@@ -49,6 +50,7 @@ public class CreateMedicoViewModel {
         this.numero = numero;
         this.cidade = cidade;
         this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
     }
 
 
@@ -70,7 +72,8 @@ public class CreateMedicoViewModel {
             idade,
             sexo,
             endereco,
-            dataNascimento
+            dataNascimento,
+                cpf
 
         ));
         return medico;

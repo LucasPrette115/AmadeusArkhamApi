@@ -18,12 +18,10 @@ public class DeleteMedicoViewModel extends MedicoViewModel {
                                  String cidade, String cpf, Date dataNascimento) {
         super(id,
                 nome,
-                pessoa,
                 crm,
                 status,
                 email,
                 telefone,
-                endereco,
                 idade,
                 sexo,
                 cep,
