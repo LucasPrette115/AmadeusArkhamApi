@@ -52,7 +52,9 @@ public class PacienteAppService {
                     newPatient.getPessoa().getSexo(),
                     newPatient.getPessoa().getTelefone(),
                     newPatient.getCpf(),
-                    newPatient.getDataNascimento()
+                    newPatient.getDataNascimento(),
+                    newPatient.getContatoEmergencia().getNomeContato(),
+                    newPatient.getContatoEmergencia().getTelefoneContato()
             );
 
 

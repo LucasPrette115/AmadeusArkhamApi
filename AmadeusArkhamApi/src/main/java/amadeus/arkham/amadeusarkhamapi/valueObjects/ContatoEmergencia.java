@@ -6,11 +6,11 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class ContatoEmergencia {
     private String nomeContato;
-    private String telefone;
+    private String telefoneContato;
 
-    public ContatoEmergencia(String nomeContato, String telefone, String relacao) {
+    public ContatoEmergencia(String nomeContato, String telefone) {
         this.nomeContato = nomeContato;
-        this.telefone = telefone;
+        this.telefoneContato = telefone;
     }
 
     public ContatoEmergencia() {
@@ -26,12 +26,12 @@ public class ContatoEmergencia {
         this.nomeContato = nomeContato;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getTelefoneContato() {
+        return telefoneContato;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setTelefoneContato(String telefoneContato) {
+        this.telefoneContato = telefoneContato;
     }
 
 }

@@ -24,7 +24,9 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
             @Param("Sexo") String sexo,
             @Param("Telefone") String telefone,
             @Param("CPF") String cpf,
-            @Param("DataNascimento") Date dataNascimento
+            @Param("DataNascimento") Date dataNascimento,
+            @Param("NomeContato") String nomeContato,
+            @Param("TelefoneContato") String telefoneContato
     );
     boolean existsByNome(String nome);
     boolean existsByCpf(String cpf);

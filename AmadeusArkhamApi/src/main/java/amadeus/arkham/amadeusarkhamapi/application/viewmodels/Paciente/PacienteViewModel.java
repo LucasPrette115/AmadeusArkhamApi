@@ -2,9 +2,11 @@ package amadeus.arkham.amadeusarkhamapi.application.viewmodels.Paciente;
 
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
+import amadeus.arkham.amadeusarkhamapi.valueObjects.ContatoEmergencia;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 
 public class PacienteViewModel {
@@ -20,6 +22,8 @@ public class PacienteViewModel {
     private String numero;
     private String cidade;
     private Date dataNascimento;
+    private String nomeContato;
+    private String telefoneContato;
 
     public PacienteViewModel(Long id,
                              String nome,
@@ -33,7 +37,8 @@ public class PacienteViewModel {
                              String cep,
                              String numero,
                              String cidade,
-                             Date dataNascimento) {
+                             Date dataNascimento,
+                             String nomeContato, String telefoneContato) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -45,6 +50,8 @@ public class PacienteViewModel {
         this.numero = numero;
         this.cidade = cidade;
         this.dataNascimento = dataNascimento;
+        this.nomeContato = nomeContato;
+        this.telefoneContato = telefoneContato;
     }
     public Paciente UpdateByViewModel(){
         Endereco endereco = new Endereco(
@@ -52,7 +59,9 @@ public class PacienteViewModel {
                 numero,
                 cidade
         );
-
+        ContatoEmergencia contatoEmergencia = new ContatoEmergencia(
+            nomeContato, telefoneContato
+        );
         Paciente paciente = new Paciente();
         paciente.setId(id);
         paciente.setNome(nome);
@@ -69,7 +78,24 @@ public class PacienteViewModel {
                 dataNascimento,
                 cpf
         ));
+        paciente.setContatoEmergencia(contatoEmergencia);
         return paciente;
+    }
+
+    public String getNomeContato() {
+        return nomeContato;
+    }
+
+    public void setNomeContato(String nomeContato) {
+        this.nomeContato = nomeContato;
+    }
+
+    public String getTelefoneContato() {
+        return telefoneContato;
+    }
+
+    public void setTelefoneContato(String telefoneContato) {
+        this.telefoneContato = telefoneContato;
     }
 
     public Long getId() {
