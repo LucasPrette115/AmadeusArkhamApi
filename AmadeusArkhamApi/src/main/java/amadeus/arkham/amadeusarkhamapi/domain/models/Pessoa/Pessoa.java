@@ -11,8 +11,8 @@ import java.util.Date;
 public class Pessoa {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
+
     @NotNull
     private String nome;
     @NotNull
@@ -30,7 +30,7 @@ public class Pessoa {
     @Embedded
     private Endereco endereco;
 
-    public Pessoa(@NotNull Long id, @NotNull String nome,
+    public Pessoa(Long id, @NotNull String nome,
                   @NotNull String email,
                   @NotNull String telefone,
                   int idade, @NotNull String sexo,

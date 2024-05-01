@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 public class Medico
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
 
     @NotNull
@@ -20,7 +19,7 @@ public class Medico
     @NotNull
     private Boolean status;
     @OneToOne
-    @JoinColumn(name = "idPessoa", referencedColumnName = "id")
+    @JoinColumn(name = "id_Pessoa", referencedColumnName = "id")
     private Pessoa pessoa;
     public Medico(Long id,
                   String crm,

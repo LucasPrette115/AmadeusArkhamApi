@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "pacientes")
 public class Paciente {
-    @NotNull
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;

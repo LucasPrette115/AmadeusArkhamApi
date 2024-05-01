@@ -1,10 +1,13 @@
 package amadeus.arkham.amadeusarkhamapi.application.services.Paciente;
 
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Paciente.PacienteViewModel;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Paciente.PacienteRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Pessoas.PessoaRepository;
+import amadeus.arkham.amadeusarkhamapi.valueObjects.ContatoEmergencia;
+import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,19 +98,39 @@ public class PacienteAppService {
 
     public String atualizarPaciente(@NotNull PacienteViewModel paciente) {
         try {
-            Optional<Paciente> pacienteResult = pacienteRepository.findById(paciente.getId());
+            Optional<Paciente> pacienteResult  = pacienteRepository.findById(paciente.getId());
 
-            if (pacienteResult.isPresent()) {
+            if (!pacienteResult.isPresent()) {
+                    throw new ValidationException("Paciente não encontrado!");
+                }
+            Optional<Pessoa> pessoaResult = pessoaRepository.findById(pacienteResult.get().getPessoa().getId());
+
                 Paciente pacienteRepo = pacienteResult.get();
-                Paciente newPatient = paciente.UpdateByViewModel();
-                newPatient.getPessoa().setId(pacienteRepo.getPessoa().getId());
-                pessoaRepository.save(newPatient.getPessoa());
-                pacienteRepository.save(newPatient);
-            }
-            else{
-                throw new ValidationException("Paciente não encontrado!");
-            }
+                Pessoa pessoaRepo = pessoaResult.get();
 
+                pacienteRepo.setContatoEmergencia(new ContatoEmergencia(
+                        paciente.getNomeContato(),
+                        paciente.getTelefoneContato()
+                ));
+                pacienteRepo.setEmail(paciente.getEmail());
+                pacienteRepo.setCpf(paciente.getCpf());
+                pacienteRepo.setDataNascimento(paciente.getDataNascimento());
+                pacienteRepo.setNome(paciente.getNome());
+                pessoaRepo.setIdade(paciente.getIdade());
+                pessoaRepo.setCpf(paciente.getCpf());
+                pessoaRepo.setDataNascimento(paciente.getDataNascimento());
+                pessoaRepo.setSexo(paciente.getSexo());
+                pessoaRepo.setTelefone(paciente.getTelefone());
+                pessoaRepo.setEmail(paciente.getEmail());
+                pessoaRepo.setNome(paciente.getNome());
+                pessoaRepo.setEndereco(new Endereco(
+                                paciente.getCep(),
+                                paciente.getNumero(),
+                                paciente.getCidade()
+                        )
+                );
+                pessoaRepository.save(pessoaRepo);
+                pacienteRepository.save(pacienteRepo);
         } catch (ValidationException e) {
             return e.getMessage();
         }
@@ -116,5 +139,9 @@ public class PacienteAppService {
 
     public List<Paciente> findByNomeContainingIgnoreCase(String nome) {
         return pacienteRepository.findByNomeContainingIgnoreCase(nome);
+    }
+    public Paciente getById(Long id) {
+        Optional<Paciente> response = pacienteRepository.findById(id);
+        return response.orElse(null);
     }
 }

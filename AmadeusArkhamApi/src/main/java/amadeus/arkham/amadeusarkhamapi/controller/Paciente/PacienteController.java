@@ -3,6 +3,7 @@ package amadeus.arkham.amadeusarkhamapi.controller.Paciente;
 
 import amadeus.arkham.amadeusarkhamapi.application.services.Paciente.PacienteAppService;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Paciente.PacienteViewModel;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,17 @@ public class PacienteController {
     public List<Paciente> getPacientesByName(@RequestParam String nome) {
         return pacienteAppService.findByNomeContainingIgnoreCase(nome);
     }
+
+    @GetMapping("/getById")
+    public ResponseEntity<Paciente> getById(@RequestParam Long id) {
+        Paciente response =  pacienteAppService.getById(id);
+        if (response != null) {
+            return ResponseEntity.ok(response);
+        }   else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
 
 
 }

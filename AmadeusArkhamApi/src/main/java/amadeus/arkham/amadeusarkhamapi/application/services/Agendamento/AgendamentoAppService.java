@@ -105,4 +105,8 @@ public class AgendamentoAppService {
         Optional<Agendamentos> response = agendamentoRepository.findById(id);
         return response.orElse(null);
     }
+
+    public List<Agendamentos> buscarPorIdDoMedico(Long idDoMedico) {
+        return agendamentoRepository.findByMedicoId(idDoMedico);
+    }
 }

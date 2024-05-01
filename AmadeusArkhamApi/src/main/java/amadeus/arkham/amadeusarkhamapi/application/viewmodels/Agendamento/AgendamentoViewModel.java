@@ -18,8 +18,7 @@ public class AgendamentoViewModel {
     private String nomeMedico;
     private Long pacienteId;
     private String nomePaciente;
-    private final MedicoRepository medicoRepository;
-    private final PacienteRepository pacienteRepository;
+
 
     public AgendamentoViewModel(Long id,
                                 Date dataHora,
@@ -37,8 +36,7 @@ public class AgendamentoViewModel {
         this.nomeMedico = nomeMedico;
         this.pacienteId = pacienteId;
         this.nomePaciente = nomePaciente;
-        this.medicoRepository = medicoRepository;
-        this.pacienteRepository = pacienteRepository;
+
     }
     public Agendamentos ByViewModel() throws ValidationException {
         Agendamentos agendamento = new Agendamentos();

@@ -5,6 +5,7 @@ import amadeus.arkham.amadeusarkhamapi.application.services.Agendamento.Agendame
 import amadeus.arkham.amadeusarkhamapi.application.services.Medico.MedicoAppService;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Agendamento.AgendamentoViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento.Agendamentos;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Internacao.Internacao;
 import jakarta.xml.bind.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,5 +68,14 @@ public class AgendamentoController {
         }   else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    @GetMapping("/byDoctor/{idDoMedico}")
+    public ResponseEntity<List<Agendamentos>> buscarPorIdDoMedico(@PathVariable Long idDoMedico) {
+        List<Agendamentos> agendamentos = agendamentoAppService.buscarPorIdDoMedico(idDoMedico);
+        if (agendamentos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(agendamentos);
     }
 }

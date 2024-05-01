@@ -3,10 +3,13 @@ package amadeus.arkham.amadeusarkhamapi.application.services.Medico;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.CreateMedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.DeleteMedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.MedicoViewModel;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento.Agendamentos;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Medico.MedicoRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Paciente.PacienteRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Pessoas.PessoaRepository;
+import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +53,10 @@ public class MedicoAppService {
                     newDoctor.getPessoa().getNome(),
                     newDoctor.getPessoa().getSexo(),
                     newDoctor.getPessoa().getTelefone(),
-                    newDoctor.getPessoa().getCpf(),
-                    newDoctor.getPessoa().getDataNascimento(),
                     newDoctor.getCrm(),
-                    true
+                    true,
+                    newDoctor.getPessoa().getCpf(),
+                    newDoctor.getPessoa().getDataNascimento()
             );
 
 
@@ -66,16 +69,33 @@ public class MedicoAppService {
         try {
             Optional<Medico> medicoResult = medicoRepository.findById(medico.getId());
 
-            if (medicoResult.isPresent()) {
+            if (!medicoResult.isPresent()) {
+                throw new ValidationException("Médico não encontrado");
+            }
+            Optional<Pessoa> pessoaResult = pessoaRepository.findById(medicoResult.get().getPessoa().getId());
+
                 Medico medicoRepo = medicoResult.get();
-                Medico newMedico = medico.UpdateyByViewModel();
-                newMedico.getPessoa().setId(medicoRepo.getPessoa().getId());
-                pessoaRepository.save(newMedico.getPessoa());
-                medicoRepository.save(newMedico);
-            }
-            else{
-                throw new ValidationException("Paciente não encontrado!");
-            }
+                Pessoa pessoaRepo = pessoaResult.get();
+                medicoRepo.setStatus(medico.getStatus());
+                medicoRepo.setCrm(medico.getCrm());
+                medicoRepo.setNome(medico.getNome());
+                pessoaRepo.setIdade(medico.getIdade());
+                pessoaRepo.setCpf(medico.getCpf());
+                pessoaRepo.setDataNascimento(medico.getDataNascimento());
+                pessoaRepo.setSexo(medico.getSexo());
+                pessoaRepo.setTelefone(medico.getTelefone());
+                pessoaRepo.setEmail(medico.getEmail());
+                pessoaRepo.setNome(medico.getNome());
+                pessoaRepo.setEndereco(new Endereco(
+                                medico.getCep(),
+                                medico.getNumero(),
+                                medico.getCidade()
+                        )
+                );
+                pessoaRepository.save(pessoaRepo);
+                medicoRepository.save(medicoRepo);
+
+
 
         } catch (ValidationException e) {
             return e.getMessage();
@@ -119,5 +139,10 @@ public class MedicoAppService {
 
     public List<Medico> findByNomeContainingIgnoreCase(String nome) {
         return medicoRepository.findByNomeContainingIgnoreCase(nome);
+    }
+
+    public Medico getById(Long id) {
+        Optional<Medico> response = medicoRepository.findById(id);
+        return response.orElse(null);
     }
 }

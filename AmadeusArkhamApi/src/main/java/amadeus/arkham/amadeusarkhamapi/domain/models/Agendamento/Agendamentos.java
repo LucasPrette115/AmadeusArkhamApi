@@ -13,7 +13,6 @@ public class Agendamentos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
 
     @ManyToOne

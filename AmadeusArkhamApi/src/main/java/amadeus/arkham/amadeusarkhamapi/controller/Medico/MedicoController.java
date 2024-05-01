@@ -4,6 +4,7 @@ import amadeus.arkham.amadeusarkhamapi.application.services.Medico.MedicoAppServ
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.CreateMedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.DeleteMedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.MedicoViewModel;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento.Agendamentos;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import jakarta.xml.bind.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class MedicoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createUser(@RequestBody CreateMedicoViewModel medico) throws ValidationException {
+    public ResponseEntity<String> createUser(@RequestBody CreateMedicoViewModel medico) {
         String response = medicoAppService.salvarMedico(medico);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.CREATED).body("Médico cadastrado com sucesso!");
@@ -67,6 +68,16 @@ public class MedicoController {
         String response =  medicoAppService.removerMedico(medico);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.OK).body("Médico excluído com sucesso!");
+        }   else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @GetMapping("/getById")
+    public ResponseEntity<Medico> getById(@RequestParam Long id) {
+        Medico response =  medicoAppService.getById(id);
+        if (response != null) {
+            return ResponseEntity.ok(response);
         }   else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }

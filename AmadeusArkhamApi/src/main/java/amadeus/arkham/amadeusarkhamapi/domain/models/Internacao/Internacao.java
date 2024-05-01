@@ -12,7 +12,6 @@ public class Internacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
 
     @ManyToOne

@@ -20,10 +20,10 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
                          @Param("NomePessoa") String nomePessoa,
                        @Param("Sexo") String sexo,
                          @Param("Telefone") String telefone,
-                       @Param("Cpf") String cpf,
-                         @Param("DataNascimento") Date dataNascimento,
                        @Param("CRM") String crm,
-                         @Param("Status") boolean status);
+                         @Param("Status") boolean status,
+                         @Param("Cpf") String cpf,
+                         @Param("DataNascimento") Date dataNascimento);
     boolean existsByCrm(String crm);
     boolean existsByNome(String nome);
     Medico findByCrm(String crm);
