@@ -12,6 +12,7 @@ public class InternacaoViewModel {
     private String nomeMedico;
     private Long pacienteId;
     private String nomePaciente;
+    private Date dataAlta;
 
     public InternacaoViewModel() {
 
@@ -39,6 +40,14 @@ public class InternacaoViewModel {
         internacao.setDataInternacao(this.dataInternacao);
         internacao.setDiagnostico(this.diagnostico);
         return internacao;
+    }
+
+    public Date getDataAlta() {
+        return dataAlta;
+    }
+
+    public void setDataAlta(Date dataAlta) {
+        this.dataAlta = dataAlta;
     }
 
     public String getDiagnostico() {

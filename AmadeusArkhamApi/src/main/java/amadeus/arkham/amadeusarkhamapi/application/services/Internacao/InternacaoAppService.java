@@ -85,15 +85,29 @@ public class InternacaoAppService {
         }
         return null;
     }
-
-
-    public String excluirInternação(@NotNull InternacaoViewModel interacaoViewModel) {
+    public String atribuirAlta(@NotNull InternacaoViewModel internacaoViewModel) {
         try {
-            Optional<Internacao> internacaoOptional = internacaoRepository.findById(interacaoViewModel.getId());
+            Optional<Internacao> internacaoOptional = internacaoRepository.findById(internacaoViewModel.getId());
             if (!internacaoOptional.isPresent()) {
                 throw new ValidationException("Internação não encontrada");
             }
-            internacaoRepository.deleteById(interacaoViewModel.getId());
+            Internacao internacaoRepo = internacaoOptional.get();
+            internacaoRepo.setDataAlta(internacaoViewModel.getDataAlta());
+            internacaoRepository.save(internacaoRepo);
+
+        } catch (ValidationException e) {
+            return e.getMessage();
+        }
+        return null;
+    }
+
+    public String excluirInternação(@NotNull InternacaoViewModel internacaoViewModel) {
+        try {
+            Optional<Internacao> internacaoOptional = internacaoRepository.findById(internacaoViewModel.getId());
+            if (!internacaoOptional.isPresent()) {
+                throw new ValidationException("Internação não encontrada");
+            }
+            internacaoRepository.deleteById(internacaoOptional.get().getId());
 
         } catch (ValidationException e){
             return e.getMessage();

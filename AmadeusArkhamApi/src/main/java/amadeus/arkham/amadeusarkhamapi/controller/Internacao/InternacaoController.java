@@ -24,7 +24,7 @@ public class InternacaoController {
     public ResponseEntity<String> create(@RequestBody InternacaoViewModel internacaoViewModel) {
         String response = internacaoAppService.inserirInternacao(internacaoViewModel);
         if (response == null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("Agendamento cadastrado com sucesso!");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Internação cadastrada com sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
@@ -34,7 +34,17 @@ public class InternacaoController {
     public ResponseEntity<String> update(@RequestBody InternacaoViewModel internacaoViewModel) {
         String response = internacaoAppService.atualizarInternacao(internacaoViewModel);
         if (response == null) {
-            return ResponseEntity.status(HttpStatus.OK).body("Agendamento atualizado com sucesso!");
+            return ResponseEntity.status(HttpStatus.OK).body("Internação atualizada com sucesso!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @PutMapping("/setDischarge")
+    public ResponseEntity<String> setDischarge(@RequestBody InternacaoViewModel internacaoViewModel) {
+        String response = internacaoAppService.atribuirAlta(internacaoViewModel);
+        if (response == null) {
+            return ResponseEntity.status(HttpStatus.OK).body("Internação atualizada com sucesso!");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
@@ -50,7 +60,7 @@ public class InternacaoController {
     public ResponseEntity<String> deleteUser(@RequestBody InternacaoViewModel internacaoViewModel) {
         String response =  internacaoAppService.excluirInternação(internacaoViewModel);
         if (response == null) {
-            return ResponseEntity.status(HttpStatus.OK).body("Agendamento excluído com sucesso!");
+            return ResponseEntity.status(HttpStatus.OK).body("Internação excluída com sucesso!");
         }   else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }

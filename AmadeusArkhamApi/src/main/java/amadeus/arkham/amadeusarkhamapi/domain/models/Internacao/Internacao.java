@@ -27,19 +27,30 @@ public class Internacao {
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private Date dataInternacao;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataAlta;
     @NotNull
     private String diagnostico;
 
-    public Internacao(Long id, Medico medico, Paciente paciente, Date dataInternacao, String diagnostico) {
+    public Internacao(Long id, Medico medico, Paciente paciente, Date dataInternacao, Date dataAlta, String diagnostico) {
         this.id = id;
         this.medico = medico;
         this.paciente = paciente;
         this.dataInternacao = dataInternacao;
+        this.dataAlta = dataAlta;
         this.diagnostico = diagnostico;
     }
 
     public Internacao() {
 
+    }
+
+    public Date getDataAlta() {
+        return dataAlta;
+    }
+
+    public void setDataAlta(Date dataAlta) {
+        this.dataAlta = (dataAlta != null) ? dataAlta : new Date();
     }
 
     public Long getId() {
