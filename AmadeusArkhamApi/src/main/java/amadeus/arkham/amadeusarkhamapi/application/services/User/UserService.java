@@ -1,5 +1,6 @@
 package amadeus.arkham.amadeusarkhamapi.application.services.User;
 
+import amadeus.arkham.amadeusarkhamapi.application.services.Helpers.PaginationHelper;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.CreateUserViewModel;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.UserViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
@@ -7,6 +8,7 @@ import amadeus.arkham.amadeusarkhamapi.infra.data.User.UserRepository;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -51,17 +53,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User buscarUserporUsername(@NotNull UserViewModel user) {
-        User userResult = userRepository.findByUsername(user.getUsername());
-        try {
-            if (userResult == null) {
-                throw new ValidationException("Usuário não encontrado!");
-            }
-
-        } catch (ValidationException e) {
-             e.getMessage();
-        }
-        return userResult;
+    public Page<User> getUsersList(int pageNumber, int pageSize) {
+        List<User> allUsers = userRepository.findAll();
+        PaginationHelper<User> paginationHelper = new PaginationHelper<>(pageSize);
+        return paginationHelper.getPage(allUsers, pageNumber);
     }
 
     public String atualizarUsuario(@NotNull UserViewModel user) {

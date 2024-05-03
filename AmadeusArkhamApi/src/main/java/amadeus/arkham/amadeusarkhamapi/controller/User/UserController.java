@@ -6,6 +6,7 @@ import amadeus.arkham.amadeusarkhamapi.application.viewmodels.User.UserViewModel
 import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
 import jakarta.xml.bind.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +37,17 @@ public class UserController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.listarUsuarios();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/list")
+    public Page<User> getList(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return userService.getUsersList(pageNumber, pageSize);
     }
 
     @PutMapping("/update")
@@ -72,7 +81,7 @@ public class UserController {
     }
 
     @GetMapping("/getByUsername")
-    public ResponseEntity<List<User>> getUsers(@RequestParam String username) {
+    public ResponseEntity<List<User>> getUsersByUsername(@RequestParam String username) {
         List<User> userResult = userService.findByUsernameContainingIgnoreCase(username);
         if (userResult != null) {
             return ResponseEntity.ok(userResult);

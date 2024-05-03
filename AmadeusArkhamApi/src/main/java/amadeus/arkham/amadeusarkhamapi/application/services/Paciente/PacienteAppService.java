@@ -1,9 +1,10 @@
 package amadeus.arkham.amadeusarkhamapi.application.services.Paciente;
 
+import amadeus.arkham.amadeusarkhamapi.application.services.Helpers.PaginationHelper;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Paciente.PacienteViewModel;
-import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Pessoa.Pessoa;
+import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Paciente.PacienteRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Pessoas.PessoaRepository;
 import amadeus.arkham.amadeusarkhamapi.valueObjects.ContatoEmergencia;
@@ -11,6 +12,7 @@ import amadeus.arkham.amadeusarkhamapi.valueObjects.Endereco;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +34,12 @@ public class PacienteAppService {
 
     public List<Paciente> list() {
         return pacienteRepository.findAll();
+    }
+
+    public Page<Paciente> getList(int pageNumber, int pageSize) {
+        List<Paciente> allPatients = pacienteRepository.findAll();
+        PaginationHelper<Paciente> paginationHelper = new PaginationHelper<>(pageSize);
+        return paginationHelper.getPage(allPatients, pageNumber);
     }
 
     public String salvarPaciente(@NotNull PacienteViewModel paciente) {

@@ -5,7 +5,9 @@ import amadeus.arkham.amadeusarkhamapi.application.services.Paciente.PacienteApp
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Paciente.PacienteViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
+import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +59,14 @@ public class PacienteController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    @GetMapping("/list")
+    public Page<Paciente> getList(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return pacienteAppService.getList(pageNumber, pageSize);
     }
 
     @PostMapping("/getByCpf")

@@ -1,6 +1,7 @@
 package amadeus.arkham.amadeusarkhamapi.application.services.Internacao;
 
 
+import amadeus.arkham.amadeusarkhamapi.application.services.Helpers.PaginationHelper;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Internacao.InternacaoViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Internacao.Internacao;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
@@ -10,6 +11,7 @@ import amadeus.arkham.amadeusarkhamapi.infra.data.Medico.MedicoRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Paciente.PacienteRepository;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,6 +54,12 @@ public class InternacaoAppService {
     }
     public List<Internacao> list() {
         return internacaoRepository.findAll();
+    }
+
+    public Page<Internacao> getList(int pageNumber, int pageSize) {
+        List<Internacao> all = internacaoRepository.findAll();
+        PaginationHelper<Internacao> paginationHelper = new PaginationHelper<>(pageSize);
+        return paginationHelper.getPage(all, pageNumber);
     }
 
     public String atualizarInternacao(@NotNull InternacaoViewModel interacaoViewModel) {

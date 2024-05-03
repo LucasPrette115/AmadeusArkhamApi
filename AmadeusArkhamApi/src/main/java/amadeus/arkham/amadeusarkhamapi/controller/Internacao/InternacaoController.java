@@ -4,6 +4,8 @@ package amadeus.arkham.amadeusarkhamapi.controller.Internacao;
 import amadeus.arkham.amadeusarkhamapi.application.services.Internacao.InternacaoAppService;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Internacao.InternacaoViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Internacao.Internacao;
+import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +56,14 @@ public class InternacaoController {
     public ResponseEntity<List<Internacao>> getAll() {
         List<Internacao> internacoess = internacaoAppService.list();
         return ResponseEntity.ok(internacoess);
+    }
+
+    @GetMapping("/list")
+    public Page<Internacao> getList(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return internacaoAppService.getList(pageNumber, pageSize);
     }
 
     @DeleteMapping("/delete")

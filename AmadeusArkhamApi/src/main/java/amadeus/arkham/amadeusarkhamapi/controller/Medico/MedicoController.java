@@ -6,8 +6,10 @@ import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.DeleteMedic
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Medico.MedicoViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento.Agendamentos;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
+import amadeus.arkham.amadeusarkhamapi.domain.models.User.User;
 import jakarta.xml.bind.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +73,14 @@ public class MedicoController {
         }   else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    @GetMapping("/list")
+    public Page<Medico> getList(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return medicoAppService.getList(pageNumber, pageSize);
     }
 
     @GetMapping("/getById")

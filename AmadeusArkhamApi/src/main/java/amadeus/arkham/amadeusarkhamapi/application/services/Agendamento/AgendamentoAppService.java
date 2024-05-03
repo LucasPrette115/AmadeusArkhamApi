@@ -1,7 +1,9 @@
 package amadeus.arkham.amadeusarkhamapi.application.services.Agendamento;
 
+import amadeus.arkham.amadeusarkhamapi.application.services.Helpers.PaginationHelper;
 import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Agendamento.AgendamentoViewModel;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento.Agendamentos;
+import amadeus.arkham.amadeusarkhamapi.domain.models.Internacao.Internacao;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Medico.Medico;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Paciente.Paciente;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Agendamento.AgendamentoRepository;
@@ -9,6 +11,7 @@ import amadeus.arkham.amadeusarkhamapi.infra.data.Medico.MedicoRepository;
 import amadeus.arkham.amadeusarkhamapi.infra.data.Paciente.PacienteRepository;
 import jakarta.xml.bind.ValidationException;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -99,6 +102,12 @@ public class AgendamentoAppService {
             return e.getMessage();
         }
         return null;
+    }
+
+    public Page<Agendamentos> getList(int pageNumber, int pageSize) {
+        List<Agendamentos> all = agendamentoRepository.findAll();
+        PaginationHelper<Agendamentos> paginationHelper = new PaginationHelper<>(pageSize);
+        return paginationHelper.getPage(all, pageNumber);
     }
 
     public Agendamentos getById(Long id) {

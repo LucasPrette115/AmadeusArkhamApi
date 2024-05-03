@@ -7,6 +7,7 @@ import amadeus.arkham.amadeusarkhamapi.application.viewmodels.Agendamento.Agenda
 import amadeus.arkham.amadeusarkhamapi.domain.models.Agendamento.Agendamentos;
 import amadeus.arkham.amadeusarkhamapi.domain.models.Internacao.Internacao;
 import jakarta.xml.bind.ValidationException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,14 @@ public class AgendamentoController {
         }   else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    @GetMapping("/list")
+    public Page<Agendamentos> getList(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return agendamentoAppService.getList(pageNumber, pageSize);
     }
 
     @GetMapping("/byDoctor/{idDoMedico}")
