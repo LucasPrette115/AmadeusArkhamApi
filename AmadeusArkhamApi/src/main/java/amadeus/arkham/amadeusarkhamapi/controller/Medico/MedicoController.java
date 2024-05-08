@@ -66,8 +66,8 @@ public class MedicoController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody DeleteMedicoViewModel medico) {
-        String response =  medicoAppService.removerMedico(medico);
+    public ResponseEntity<String> deleteUser(@RequestParam Long id) {
+        String response =  medicoAppService.removerMedico(id);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.OK).body("Médico excluído com sucesso!");
         }   else {

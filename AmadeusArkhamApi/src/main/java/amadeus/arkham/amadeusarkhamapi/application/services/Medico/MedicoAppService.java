@@ -112,9 +112,9 @@ public class MedicoAppService {
         return medicoRepository.findAll();
     }
 
-    public String removerMedico(@NotNull MedicoViewModel medico) {
+    public String removerMedico(@NotNull Long id) {
         try {
-            Optional<Medico> medicoResult = medicoRepository.findById(medico.getId());
+            Optional<Medico> medicoResult = medicoRepository.findById(id);
 
             if (!medicoResult.isPresent()) {
                 throw new ValidationException("Médico não encontrado");

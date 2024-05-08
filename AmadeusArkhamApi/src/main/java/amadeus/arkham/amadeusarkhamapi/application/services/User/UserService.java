@@ -77,8 +77,8 @@ public class UserService {
         return null;
     }
 
-    public String removerUsuario(@NotNull UserViewModel user) {
-        Optional<User> userResult = userRepository.findById(user.getId());
+    public String removerUsuario(@NotNull Long id) {
+        Optional<User> userResult = userRepository.findById(id);
         try {
             if(!userResult.isPresent()) {
                 throw new ValidationException("Usuário não encontrado");

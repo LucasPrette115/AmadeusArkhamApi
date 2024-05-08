@@ -90,13 +90,13 @@ public class AgendamentoAppService {
         return null;
     }
 
-    public String excluirAgendamento(@NotNull AgendamentoViewModel agendamentos) {
+    public String excluirAgendamento(@NotNull Long id) {
         try {
-            Optional<Agendamentos> agendamentosOptional = agendamentoRepository.findById(agendamentos.getId());
+            Optional<Agendamentos> agendamentosOptional = agendamentoRepository.findById(id);
             if (!agendamentosOptional.isPresent()) {
                 throw new ValidationException("Agendamento não encontrado");
             }
-            agendamentoRepository.deleteById(agendamentos.getId());
+            agendamentoRepository.deleteById(id);
 
         } catch (ValidationException e){
             return e.getMessage();

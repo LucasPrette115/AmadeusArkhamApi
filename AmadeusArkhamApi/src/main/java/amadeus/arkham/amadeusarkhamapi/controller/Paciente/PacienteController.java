@@ -42,8 +42,8 @@ public class PacienteController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@RequestBody PacienteViewModel paciente) {
-        String response =  pacienteAppService.removerPaciente(paciente);
+    public ResponseEntity<String> delete(@RequestParam Long id) {
+        String response =  pacienteAppService.removerPaciente(id);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.OK).body("Paciente excluído com sucesso!");
         }   else {

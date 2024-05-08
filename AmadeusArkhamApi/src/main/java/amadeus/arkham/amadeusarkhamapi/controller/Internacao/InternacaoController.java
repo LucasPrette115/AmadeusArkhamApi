@@ -67,8 +67,8 @@ public class InternacaoController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody InternacaoViewModel internacaoViewModel) {
-        String response =  internacaoAppService.excluirInternação(internacaoViewModel);
+    public ResponseEntity<String> deleteUser(@RequestParam Long id) {
+        String response =  internacaoAppService.excluirInternação(id);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.OK).body("Internação excluída com sucesso!");
         }   else {

@@ -52,8 +52,8 @@ public class AgendamentoController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody AgendamentoViewModel agendamentoViewModel) {
-        String response =  agendamentoAppService.excluirAgendamento(agendamentoViewModel);
+    public ResponseEntity<String> deleteUser(@RequestParam Long id) {
+        String response =  agendamentoAppService.excluirAgendamento(id);
         if (response == null) {
             return ResponseEntity.status(HttpStatus.OK).body("Agendamento excluído com sucesso!");
         }   else {
@@ -62,7 +62,7 @@ public class AgendamentoController {
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<Agendamentos> getMedicoByName(@RequestParam Long id) {
+    public ResponseEntity<Agendamentos> getMedicoById(@RequestParam Long id) {
         Agendamentos response =  agendamentoAppService.getById(id);
         if (response != null) {
             return ResponseEntity.ok(response);

@@ -75,9 +75,9 @@ public class PacienteAppService {
         return null;
     }
 
-    public String removerPaciente(@NotNull PacienteViewModel paciente) {
+    public String removerPaciente(@NotNull Long id) {
         try {
-            Optional<Paciente> pacienteResult = pacienteRepository.findById(paciente.getId());
+            Optional<Paciente> pacienteResult = pacienteRepository.findById(id);
             if (!pacienteResult.isPresent()) {
                 throw new ValidationException("Paciente não encontrado");
             }

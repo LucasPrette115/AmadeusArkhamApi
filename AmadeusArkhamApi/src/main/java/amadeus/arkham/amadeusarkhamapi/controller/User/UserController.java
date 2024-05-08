@@ -71,8 +71,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody UserViewModel user) {
-       String response =  userService.removerUsuario(user);
+    public ResponseEntity<String> deleteUser(@RequestParam Long id) {
+       String response =  userService.removerUsuario(id);
        if (response == null) {
            return ResponseEntity.status(HttpStatus.OK).body("Usuário excluído com sucesso!");
        }   else {

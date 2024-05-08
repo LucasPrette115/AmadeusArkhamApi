@@ -109,9 +109,9 @@ public class InternacaoAppService {
         return null;
     }
 
-    public String excluirInternação(@NotNull InternacaoViewModel internacaoViewModel) {
+    public String excluirInternação(@NotNull Long id) {
         try {
-            Optional<Internacao> internacaoOptional = internacaoRepository.findById(internacaoViewModel.getId());
+            Optional<Internacao> internacaoOptional = internacaoRepository.findById(id);
             if (!internacaoOptional.isPresent()) {
                 throw new ValidationException("Internação não encontrada");
             }
